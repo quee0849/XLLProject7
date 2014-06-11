@@ -198,6 +198,73 @@ EXCEL_END
 namespace
 {
 XLRegistration::Arg
+MCVanillaChoice3Args[]=
+{
+{ "parametersMatrix","too lazy to comment this one ","XLF_OPER"},
+{ "seed","too lazy to comment this one ","B"}
+};
+  XLRegistration::XLFunctionRegistrationHelper
+registerMCVanillaChoice3("xlMCVanillaChoice3",
+"MCVanillaChoice3",
+" Return the price, variance and std error of vanilla option given spot, r, d, vol, expiry, name, numPaths, Strike ",
+LibraryName,
+MCVanillaChoice3Args,
+2
+,false
+,false
+,""
+,""
+,false
+,false
+,false
+);
+}
+
+
+
+extern "C"
+{
+LPXLFOPER EXCEL_EXPORT
+xlMCVanillaChoice3(
+LPXLFOPER parametersMatrixa,
+double seeda)
+{
+EXCEL_BEGIN;
+
+	if (XlfExcel::Instance().IsCalledByFuncWiz())
+		return XlfOper(true);
+
+XlfOper parametersMatrixb(
+	(parametersMatrixa));
+CellMatrix parametersMatrix(
+	parametersMatrixb.AsCellMatrix("parametersMatrix"));
+
+unsigned long seed(
+	static_cast<unsigned long>(seeda));
+
+ HiResTimer t;
+CellMatrix result(
+	MCVanillaChoice3(
+		parametersMatrix,
+		seed)
+	);
+CellMatrix resultCells(result);
+CellMatrix time(1,2);
+time(0,0) = "time taken";
+time(0,1) = t.elapsed();
+resultCells.PushBottom(time);
+return XlfOper(resultCells);
+EXCEL_END
+}
+}
+
+
+
+//////////////////////////
+
+namespace
+{
+XLRegistration::Arg
 MCVanillaChoice1Args[]=
 {
 { "parametersMatrix","too lazy to comment this one ","XLF_OPER"}

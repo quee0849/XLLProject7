@@ -49,6 +49,12 @@ BSGamma(const MyMatrix& parametersMatrix);
 double //
 BSGammaFD(const MyMatrix& parametersMatrix, double epsilon);
 
+CellMatrix // returns delta, gamma, vega, rho, theta
+BSGreeks(const MyMatrix& parametersMatrix);
+
+CellMatrix // returns delta, gamma, vega, rho, theta using the finite difference method
+BSGreeksFD(const MyMatrix& parametersMatrix,double epsilon);
+
 
 
 

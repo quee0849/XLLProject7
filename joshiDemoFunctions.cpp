@@ -68,7 +68,7 @@ MCVanillaCall(const MyMatrix& parametersMatrix) {
 
 
 
-CellMatrix MCVanillaChoice1(const CellMatrix& parametersMatrix) {
+CellMatrix MCVanillaChoice3(const CellMatrix& parametersMatrix, unsigned long seed) {
 	// check selected area has the correct size
 	if ( parametersMatrix.ColumnsInStructure() < 8  || parametersMatrix.ColumnsInStructure() > 9 ||
 		parametersMatrix.RowsInStructure() !=1 )
@@ -99,6 +99,7 @@ CellMatrix MCVanillaChoice1(const CellMatrix& parametersMatrix) {
 		ConvergenceTable gathererTwo(gatherer);
 
 		RandomParkMiller generator(1);
+		generator.SetSeed(seed);
 		AntiThetic GenTwo(generator);
 
 		SimpleMonteCarlo6(theOption,
@@ -235,4 +236,10 @@ CellMatrix MCVanillaChoiceEulerStepping(const CellMatrix& parametersMatrix) {
 			resultMatrix(0,0)=13.0; resultMatrix(0,1)=0.0; resultMatrix(0,2)=0.0; 
 			return resultMatrix;
 		}
+}
+
+CellMatrix // Return the price, variance and std error of vanilla option given spot, r, d, vol, expiry, name, numPaths, Strike
+//<xlw:time
+MCVanillaChoice1(const CellMatrix& parametersMatrix) {
+return MCVanillaChoice3(parametersMatrix, 1UL);
 }

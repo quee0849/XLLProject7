@@ -41,7 +41,11 @@ MCVanillaCall(const MyMatrix& parametersMatrix);
 
 CellMatrix // Return the price, variance and std error of vanilla option given spot, r, d, vol, expiry, name, numPaths, Strike
 //<xlw:time
-MCVanillaChoice1(const CellMatrix& parametersMatrix);
+MCVanillaChoice3(const CellMatrix& parametersMatrix, unsigned long seed);
+
+CellMatrix // Return the price, variance and std error of vanilla option given spot, r, d, vol, expiry, name, numPaths, Strike
+//<xlw:time
+MCVanillaChoice1(const CellMatrix& parametersMatrix); 
 
 
 CellMatrix  // return convergence table for vanilla option given spot,  r, d, vol, expiry, name, numPaths, Strike

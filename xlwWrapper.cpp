@@ -631,6 +631,120 @@ EXCEL_END
 
 //////////////////////////
 
+namespace
+{
+XLRegistration::Arg
+BSGreeksArgs[]=
+{
+{ "parametersMatrix","too lazy to comment this one ","XLF_OPER"}
+};
+  XLRegistration::XLFunctionRegistrationHelper
+registerBSGreeks("xlBSGreeks",
+"BSGreeks",
+" returns delta, gamma, vega, rho, theta ",
+LibraryName,
+BSGreeksArgs,
+1
+,false
+,false
+,""
+,""
+,false
+,false
+,false
+);
+}
+
+
+
+extern "C"
+{
+LPXLFOPER EXCEL_EXPORT
+xlBSGreeks(
+LPXLFOPER parametersMatrixa)
+{
+EXCEL_BEGIN;
+
+	if (XlfExcel::Instance().IsCalledByFuncWiz())
+		return XlfOper(true);
+
+XlfOper parametersMatrixb(
+	(parametersMatrixa));
+MyMatrix parametersMatrix(
+	parametersMatrixb.AsMatrix("parametersMatrix"));
+
+CellMatrix result(
+	BSGreeks(
+		parametersMatrix)
+	);
+return XlfOper(result);
+EXCEL_END
+}
+}
+
+
+
+//////////////////////////
+
+namespace
+{
+XLRegistration::Arg
+BSGreeksFDArgs[]=
+{
+{ "parametersMatrix","too lazy to comment this one ","XLF_OPER"},
+{ "epsilon","too lazy to comment this one ","B"}
+};
+  XLRegistration::XLFunctionRegistrationHelper
+registerBSGreeksFD("xlBSGreeksFD",
+"BSGreeksFD",
+" returns delta, gamma, vega, rho, theta using the finite difference method ",
+LibraryName,
+BSGreeksFDArgs,
+2
+,false
+,false
+,""
+,""
+,false
+,false
+,false
+);
+}
+
+
+
+extern "C"
+{
+LPXLFOPER EXCEL_EXPORT
+xlBSGreeksFD(
+LPXLFOPER parametersMatrixa,
+double epsilon)
+{
+EXCEL_BEGIN;
+
+	if (XlfExcel::Instance().IsCalledByFuncWiz())
+		return XlfOper(true);
+
+XlfOper parametersMatrixb(
+	(parametersMatrixa));
+MyMatrix parametersMatrix(
+	parametersMatrixb.AsMatrix("parametersMatrix"));
+
+
+CellMatrix result(
+	BSGreeksFD(
+		parametersMatrix,
+		epsilon)
+	);
+return XlfOper(result);
+EXCEL_END
+}
+}
+
+
+
+//////////////////////////
+
 //////////////////////////
 // Methods that will get registered to execute in AutoOpen
 //////////////////////////
